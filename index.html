@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>Calculator Pro</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+<script defer src="js/calculator.js"></script>
+<script defer src="js/storage.js"></script>
+<script defer src="js/share.js"></script>
+<script defer src="js/app.js"></script>
+
+</head>
+
+<body>
+
+<header class="topbar">
+    <h1>Calculator Pro</h1>
+
+    <div class="toolbar">
+        <button id="newBtn">New</button>
+        <button id="saveBtn">Save</button>
+        <button id="exportBtn">Export</button>
+        <button id="shareBtn">Share</button>
+    </div>
+</header>
+
+<main class="container">
+
+<section class="calculator">
+
+    <!-- DISPLAY (IMPORTANT: DIV not input) -->
+    <div id="display">0</div>
+
+    <div class="buttons">
+
+        <button>C</button>
+        <button>⌫</button>
+        <button>%</button>
+        <button>/</button>
+
+        <button>7</button><button>8</button><button>9</button><button>*</button>
+
+        <button>4</button><button>5</button><button>6</button><button>-</button>
+
+        <button>1</button><button>2</button><button>3</button><button>+</button>
+
+        <button>0</button><button>.</button><button>=</button>
+
+    </div>
+</section>
+
+<section class="history">
+    <h2>History</h2>
+    <div id="historyList"></div>
+</section>
+
+</main>
+
+</body>
+</html>>
