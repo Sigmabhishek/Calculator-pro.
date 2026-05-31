@@ -1,123 +1,341 @@
+/* =========================
+   RESET
+========================= */
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:Segoe UI;
+}
+
+:root{
+    --bg1:#1b1f3a;
+    --bg2:#0b0f1a;
+
+    --glass:rgba(255,255,255,.08);
+    --glass-border:rgba(255,255,255,.12);
+
+    --accent:#00ff9d;
+    --accent-dark:#00c778;
+
+    --text:#ffffff;
+    --display-bg:rgba(0,0,0,.65);
+
+    --radius:18px;
 }
 
 body{
+    font-family:Segoe UI, Arial, sans-serif;
+
     min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background: radial-gradient(circle at top,#1b1f3a,#0b0f1a);
-    color:white;
+    min-height:100svh;
+
+    background:
+        radial-gradient(circle at top,
+        var(--bg1),
+        var(--bg2));
+
+    color:var(--text);
+
+    padding:
+        calc(env(safe-area-inset-top) + 70px)
+        12px
+        calc(env(safe-area-inset-bottom) + 20px);
+
+    overflow-x:hidden;
 }
 
+/* =========================
+   TOPBAR
+========================= */
 .topbar{
     position:fixed;
     top:0;
     left:0;
     width:100%;
-    padding:12px 20px;
+
+    z-index:1000;
+
     display:flex;
+    align-items:center;
     justify-content:space-between;
-    background:rgba(255,255,255,0.05);
-    backdrop-filter:blur(10px);
+    gap:12px;
+
+    padding:12px 16px;
+
+    background:rgba(15,15,20,.65);
+    backdrop-filter:blur(18px);
+
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.topbar h1{
+    font-size:clamp(16px,2vw,22px);
+    white-space:nowrap;
+}
+
+/* =========================
+   TOOLBAR
+========================= */
+.toolbar{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
 }
 
 .toolbar button{
-    margin-left:8px;
-    padding:8px 12px;
-    background:rgba(255,255,255,0.1);
-    color:white;
+    padding:10px 14px;
+
     border:none;
-    border-radius:8px;
+    border-radius:10px;
+
+    background:var(--glass);
+    color:white;
+
     cursor:pointer;
 }
 
-/* CONTAINER */
+/* =========================
+   MAIN CONTAINER
+========================= */
 .container{
-    display:flex;
+    width:min(1200px,100%);
+    margin-inline:auto;
+
+    display:grid;
+    grid-template-columns:1fr;
     gap:20px;
 }
 
-/* CALCULATOR */
-.calculator{
-    width:340px;
-    padding:15px;
-    border-radius:15px;
-    background:rgba(255,255,255,0.06);
-    backdrop-filter:blur(15px);
+/* =========================
+   GLASS PANELS
+========================= */
+.calculator,
+.history{
+    background:var(--glass);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid var(--glass-border);
+
+    border-radius:var(--radius);
+
+    box-shadow:
+        0 8px 30px rgba(0,0,0,.25);
 }
 
-/* DISPLAY FIX */
+/* =========================
+   CALCULATOR
+========================= */
+.calculator{
+    padding:16px;
+    width:100%;
+}
+
+/* =========================
+   DISPLAY
+========================= */
 #display{
     width:100%;
-    min-height:80px;
-    max-height:160px;
-    padding:10px;
-    font-size:30px;
+
+    min-height:90px;
+    max-height:220px;
+
+    padding:16px;
+
+    border-radius:14px;
+
+    background:var(--display-bg);
+
+    color:var(--accent);
+
+    font-size:clamp(24px,6vw,42px);
+    font-weight:600;
+
     text-align:right;
-    color:#00ff9d;
 
     display:flex;
-    flex-wrap:wrap;
     justify-content:flex-end;
     align-items:flex-end;
 
-    overflow:hidden;
-    word-break:break-all;
+    overflow-wrap:anywhere;
+    word-break:break-word;
 
-    background:rgba(0,0,0,0.6);
-    border-radius:10px;
+    line-height:1.2;
+
+    box-shadow:
+        inset 0 0 15px rgba(0,0,0,.5);
+
+    border:1px solid rgba(255,255,255,.05);
 }
 
-/* BUTTONS */
+/* =========================
+   BUTTON GRID
+========================= */
 .buttons{
+    margin-top:16px;
+
     display:grid;
     grid-template-columns:repeat(4,1fr);
-    gap:10px;
-    margin-top:10px;
+
+    gap:12px;
 }
 
-button{
-    padding:15px;
-    font-size:18px;
+/* =========================
+   BUTTONS
+========================= */
+.buttons button{
+    min-height:60px;
+
     border:none;
-    border-radius:10px;
-    cursor:pointer;
-    background:rgba(255,255,255,0.1);
+    border-radius:14px;
+
+    background:rgba(255,255,255,.08);
+
     color:white;
-    transition:0.15s;
+
+    font-size:clamp(18px,4vw,22px);
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:
+        transform .15s,
+        background .15s,
+        box-shadow .15s;
+
+    touch-action:manipulation;
 }
 
-button:hover{
-    background:rgba(0,255,150,0.2);
+.buttons button:hover{
+    background:rgba(0,255,157,.18);
 }
 
-button:active{
-    transform:scale(0.9);
+.buttons button:active{
+    transform:scale(.95);
 }
 
-/* PRESS EFFECT */
+/* highlighted key */
 .pressed{
-    background:rgba(0,255,150,0.6) !important;
-    transform:scale(0.88);
-    box-shadow:0 0 20px rgba(0,255,150,0.8);
+    background:rgba(0,255,157,.45) !important;
+
+    box-shadow:
+        0 0 20px rgba(0,255,157,.6);
+
+    transform:scale(.92);
 }
 
-/* HISTORY */
+/* equals button */
+.equal{
+    background:
+        linear-gradient(
+            135deg,
+            var(--accent),
+            var(--accent-dark)
+        );
+
+    color:#041b12;
+}
+
+/* =========================
+   HISTORY
+========================= */
 .history{
-    width:250px;
-    padding:15px;
-    background:rgba(255,255,255,0.05);
-    backdrop-filter:blur(15px);
-    border-radius:15px;
+    padding:16px;
+}
+
+.history h2{
+    margin-bottom:12px;
+}
+
+#historyList{
+    max-height:400px;
+    overflow:auto;
 }
 
 #historyList div{
-    padding:6px;
-    border-left:3px solid #00ff9d;
-    margin-bottom:5px;
+    padding:10px;
+
+    margin-bottom:8px;
+
+    border-left:4px solid var(--accent);
+
+    border-radius:8px;
+
+    background:rgba(255,255,255,.04);
+
+    word-break:break-word;
+}
+
+/* =========================
+   TABLET
+========================= */
+@media (min-width:768px){
+
+    .container{
+        grid-template-columns:
+            minmax(340px,480px)
+            minmax(260px,350px);
+
+        align-items:start;
+    }
+
+    .calculator{
+        width:100%;
+    }
+}
+
+/* =========================
+   LARGE DESKTOP
+========================= */
+@media (min-width:1200px){
+
+    .container{
+        gap:28px;
+    }
+
+    .buttons{
+        gap:14px;
+    }
+
+    .buttons button{
+        min-height:68px;
+    }
+}
+
+/* =========================
+   SMALL PHONES
+========================= */
+@media (max-width:420px){
+
+    body{
+        padding-left:8px;
+        padding-right:8px;
+    }
+
+    .calculator{
+        padding:12px;
+    }
+
+    .buttons{
+        gap:8px;
+    }
+
+    .buttons button{
+        min-height:54px;
+        font-size:18px;
+    }
+
+    #display{
+        min-height:80px;
+        padding:12px;
+    }
+
+    .toolbar{
+        gap:4px;
+    }
+
+    .toolbar button{
+        padding:8px 10px;
+        font-size:12px;
+    }
 }
